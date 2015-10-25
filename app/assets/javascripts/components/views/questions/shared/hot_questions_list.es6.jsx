@@ -1,3 +1,4 @@
+// Hot Questions List
 class HotQuestionsList extends React.Component {
 
   render () {
@@ -22,3 +23,20 @@ class HotQuestionsList extends React.Component {
 HotQuestionsList.propTypes = {
   questions: React.PropTypes.array
 };
+//
+
+// Hot Questions List Item
+class HotQuestionsListItem extends React.Component {
+
+  render() {
+
+    const question = this.props.question;
+
+    return <a href={`/questions/${question.id}`}>{question.title}</a>;
+  }
+};
+
+HotQuestionsListItem.propTypes = {
+  question: React.PropTypes.object.isRequired
+};
+//
