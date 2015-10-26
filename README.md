@@ -10,3 +10,6 @@ To get up and running, clone this repo, bundle, and rake as normal.
 
 + Ruby 2.2.3
 + Rails 4.2.4
+
+### Testing
+`bundle exec rspec`

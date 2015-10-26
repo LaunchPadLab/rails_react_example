@@ -40,6 +40,6 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-collection_matchers'
 end

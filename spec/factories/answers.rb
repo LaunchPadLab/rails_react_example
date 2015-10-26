@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :answer do
-    description "MyText"
+    user
+    question
+    description Faker::Lorem.paragraph
   end
-
 end
