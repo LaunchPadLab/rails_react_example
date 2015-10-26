@@ -14,15 +14,25 @@ class Question extends React.Component {
 
     const { question, questions, answers } = this.props;
 
-    const renderAnswers = answers.map(answer=>{
+    const renderAnswers = (answers || []).map(answer=>{
       return (
         <div key={answer.id} style={{marginTop: '15px', borderBottom: '1px solid #CCC', paddingBottom: '20px'}}>
           <p>{answer.description}</p>
-          <p style={{paddingLeft: '30px'}}>answered {answer.created_at}</p>
-          <p style={{paddingLeft: '30px'}}> by Johnny</p>
+          <p style={{paddingLeft: '30px'}}>answered {answer.created} ago</p>
+          <p style={{paddingLeft: '30px'}}> by {answer.email}</p>
         </div>
       );
     });
+
+    const answerForm = this.props.user ?
+      <div>
+        <h4 style={{marginTop: '20px'}}>Your Answer</h4>
+        <textarea className="form-control" rows="10" ref="description"></textarea>
+        <br/>
+        <button className="btn btn-default pull-right" onClick={this.handleSubmit}>Submit</button>
+      </div>
+      :
+      <h4 style={{marginTop: '20px'}}>Please login to answer this question</h4>;
 
     return (
       <div>
@@ -36,10 +46,7 @@ class Question extends React.Component {
         <React.addons.CSSTransitionGroup transitionName="answer" transitionEnterTimeout={1000} transitionLeaveTimeout={300} >
           {renderAnswers}
         </React.addons.CSSTransitionGroup>
-        <h4 style={{marginTop: '20px'}}>Your Answer</h4>
-        <textarea className="form-control" rows="10" ref="description"></textarea>
-        <br/>
-        <button className="btn btn-default pull-right" onClick={this.handleSubmit}>Submit</button>
+        {answerForm}
       </div>
     );
   }
@@ -48,5 +55,6 @@ class Question extends React.Component {
 Question.propTypes = {
   question: React.PropTypes.object.isRequired,
   answers:  React.PropTypes.array.isRequired,
+  user:     React.PropTypes.object,
   onAnswer: React.PropTypes.func.isRequired
 };

@@ -12,6 +12,7 @@ gem 'sqlite3'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
 gem 'react-rails', '~> 1.4.0'
+gem "active_model_serializers",  '~> 0.8.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-pluralize'
@@ -42,4 +43,5 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-collection_matchers'
+  gem 'simplecov'
 end

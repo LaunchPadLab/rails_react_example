@@ -44,6 +44,7 @@ class TopQuestionsListItem extends React.Component {
         <div style={{display: 'inline-block', verticalAlign:'top'}}>
           <a href={`/questions/${question.id}`}>{question.title}</a>
         </div>
+        <p className="pull-right">asked {question.created} ago by {question.email}</p>
       </div>
     );
   }

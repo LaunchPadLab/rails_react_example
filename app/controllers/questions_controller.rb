@@ -1,13 +1,14 @@
 class QuestionsController < ApplicationController
 
+  respond_to :html, :json
+
   def index
-    @questions = Question.all
-    render component: 'QuestionsIndex', props: { questions: @questions }, tag: 'div'
+    respond_with Question.all
   end
 
   def show
     @questions = Question.all
-    @question  = Question.with_answers.find(params[:id])
+    @question  = Question.find(params[:id])
   end
 
 end

@@ -1,13 +1,16 @@
 class AnswersController < ApplicationController
 
+  respond_to :json
+
   def index
-    render json: Answer.where(question_id: params[:id])
+    respond_with Answer.with_user.where(question_id: params[:id])
   end
 
   def create
-    @answer = Answer.create(answer_params)
+    puts params
+    @answer = Answer.create(answer_params.merge(user_id: current_user.id))
     if @answer.save
-      render json: @answer
+      respond_with @answer
     else
       render json: { response: "fail" }
     end

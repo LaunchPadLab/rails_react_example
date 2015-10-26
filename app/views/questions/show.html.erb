@@ -1,2 +1,6 @@
 <!-- Explicitly DO NOT prerender so I can use 'fetch' -->
-<%= react_component('QuestionsShow', question: @question, questions: @questions) %>
+<%= react_component('QuestionsShow', question: @question, questions: @questions, user: current_user) %>
+
+<%#= form_for @question, remote: true do |f| %>
+<%#= f.submit "Create" %>
+<%# end %>

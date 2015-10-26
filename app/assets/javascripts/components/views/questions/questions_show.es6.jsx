@@ -24,7 +24,10 @@ class QuestionsShow extends React.Component {
       return response.json();
     })
     .then(json=>{
-      this.setState({ready: true, answers: json});
+      this.setState({ready: true, answers: json.answers});
+    })
+    .catch(err=>{
+      console.log('ERR', err);
     });
   }
 
@@ -36,11 +39,16 @@ class QuestionsShow extends React.Component {
       }
     };
 
-    const formData = new FormData();
-    formData.append('answer[question_id]', this.props.question.id);
-    formData.append('answer[description]', description);
-
-    fetch('/answers', {method: 'POST', body: formData})
+    fetch('/answers', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'X-CSRF-Token': document.getElementsByName("csrf-token")[0].content,
+        'Accept':       'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    })
     .then(response=>{
       if (response.ok) {
         this.fetchAnswers();
@@ -56,14 +64,14 @@ class QuestionsShow extends React.Component {
 
   render() {
 
-    const { question, questions } = this.props;
+    const { question, questions, user } = this.props;
 
-    const questionsRender = this.state.ready ? <Question question={question} answers={this.state.answers} onAnswer={this.onAnswer}/> : '';
+    const questionRender = this.state.ready ? <Question user={user} question={question} answers={this.state.answers} onAnswer={this.onAnswer}/> : '';
 
     return (
       <div className="row">
         <div className="col-md-9">
-          {questionsRender}
+          {questionRender}
         </div>
         <div className="col-md-3" style={{marginTop: '40px'}}>
           <HotQuestionsList questions={questions} />
