@@ -21,4 +21,4 @@ Therefore, any 3rd party libraries needed here MUST be included in the `componen
 
 
 ### Testing
-TBD
+Testing is a bit iffy, there is no way to test the react components within rspec, they have to be tested with node. I have found two solutions so far, one is use Browserify and alter the react rails setup while the other preprocesses the existing components to make them available for testing in node (ie they have to re `require`ed).
