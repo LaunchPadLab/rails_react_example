@@ -10,8 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
-
  *= require_self
  */
-    @import "bootstrap-sprockets";
-    @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.answer-enter {
+  background-color: #AEE8C1;
+}
+
+.answer-enter.answer-enter-active {
+  background-color: white;
+  transition: background-color 1000ms ease-in;
+}

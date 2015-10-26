@@ -6,8 +6,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find(params[:id])
     @questions = Question.all
-    render component: 'QuestionsShow', props: { question: @question, questions: @questions }, tag: 'div'
+    @question  = Question.with_answers.find(params[:id])
   end
+
 end
