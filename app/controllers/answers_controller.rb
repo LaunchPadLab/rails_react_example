@@ -7,7 +7,6 @@ class AnswersController < ApplicationController
   end
 
   def create
-    puts params
     @answer = Answer.create(answer_params.merge(user_id: current_user.id))
     if @answer.save
       respond_with @answer

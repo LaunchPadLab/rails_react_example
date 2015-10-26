@@ -23,3 +23,12 @@
   background-color: white;
   transition: background-color 1000ms ease-in;
 }
+
+.question-enter {
+  background-color: #AEE8C1;
+}
+
+.question-enter.question-enter-active {
+  background-color: white;
+  transition: background-color 1000ms ease-in;
+}

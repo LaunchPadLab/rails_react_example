@@ -16,7 +16,11 @@ class TopQuestionsList extends React.Component {
         <h3 style={{borderBottom: '1px solid #CCC', paddingBottom: '20px', marginBottom:'0px'}}>
           Top Questions
         </h3>
-        <ul className="list-unstyled">{questions}</ul>
+        <ul className="list-unstyled">
+          <React.addons.CSSTransitionGroup transitionName="question" transitionEnterTimeout={1000} transitionLeaveTimeout={300} >
+            {questions}
+          </React.addons.CSSTransitionGroup>
+        </ul>
       </div>
     );
   }
