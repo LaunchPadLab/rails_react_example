@@ -70,7 +70,7 @@ class QuestionsIndex extends React.Component {
 
   render() {
 
-    const questionForm = this.props.user ?
+    const questionForm = this.state.user ?
       <div>
         <h4 style={{marginTop: '20px'}}>Ask a question</h4>
           <form>

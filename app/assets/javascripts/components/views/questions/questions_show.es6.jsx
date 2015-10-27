@@ -18,7 +18,7 @@ class QuestionsShow extends React.Component {
   }
 
   fetchAnswers() {
-    fetch(`/answers?id=${this.props.question.id}`, {
+    fetch(`/answers?id=${this.state.question.id}`, {
       headers: {
         'Accept':       'application/json',
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ class QuestionsShow extends React.Component {
   onAnswer(description) {
     const payload = {
       answer: {
-        question_id: this.props.question.id,
+        question_id: this.state.question.id,
         description: description
       }
     };
@@ -68,7 +68,7 @@ class QuestionsShow extends React.Component {
 
   render() {
 
-    const { question, questions, user, answers } = this.state;
+    const { question, questions, answers, user } = this.state;
 
     return (
       <div className="row">

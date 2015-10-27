@@ -14,7 +14,7 @@ class Question extends React.Component {
 
     const { question, questions, answers } = this.props;
 
-    const renderAnswers = (answers || []).map(answer=>{
+    const renderAnswers = answers.map(answer=>{
       return (
         <div key={answer.id} style={{marginTop: '15px', borderBottom: '1px solid #CCC', paddingBottom: '20px'}}>
           <p>{answer.description}</p>

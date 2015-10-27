@@ -6,4 +6,5 @@ class Question < ActiveRecord::Base
   validates :votes, :views, numericality: { only_integer: true }
 
   scope :with_answers, -> { includes(:answers) }
+  scope :with_user,    -> { includes(:user) }
 end

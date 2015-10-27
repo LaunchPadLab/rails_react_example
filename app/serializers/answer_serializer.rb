@@ -1,6 +1,8 @@
 class AnswerSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
+  self.root = false
+
   attributes :id, :description, :email, :created
 
   def created
