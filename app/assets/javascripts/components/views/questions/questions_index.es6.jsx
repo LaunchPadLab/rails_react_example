@@ -3,15 +3,10 @@ class QuestionsIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      ready:     false,
-      questions: []
-    };
+    this.state = { questions, user } = this.props;
 
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.handleSubmit   = this.handleSubmit.bind(this);
-
-    this.fetchQuestions();
   }
 
   componentDidMount() {
@@ -25,7 +20,7 @@ class QuestionsIndex extends React.Component {
   fetchQuestions() {
     fetch('/questions', {
       headers: {
-        'Accept': 'application/json',
+        'Accept':       'application/json',
         'Content-Type': 'application/json'
       }
     })
@@ -33,7 +28,7 @@ class QuestionsIndex extends React.Component {
       return response.json();
     })
     .then(json=>{
-      this.setState({ready: true, questions: json.questions});
+      this.setState({questions: json.questions});
     })
     .catch(err=>{
       console.log('ERR', err);
@@ -75,10 +70,6 @@ class QuestionsIndex extends React.Component {
 
   render() {
 
-    if (!this.state.ready) {
-      return <div></div>;
-    }
-
     const questionForm = this.props.user ?
       <div>
         <h4 style={{marginTop: '20px'}}>Ask a question</h4>
@@ -117,5 +108,6 @@ class QuestionsIndex extends React.Component {
 };
 
 QuestionsIndex.propTypes = {
-  user: React.PropTypes.object
+  questions: React.PropTypes.array.isRequired,
+  user:      React.PropTypes.object
 }

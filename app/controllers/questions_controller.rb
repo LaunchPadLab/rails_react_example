@@ -3,12 +3,14 @@ class QuestionsController < ApplicationController
   respond_to :html, :json
 
   def index
-    respond_with Question.all
+    @questions = Question.all
+    respond_with @questions
   end
 
   def show
     @questions = Question.all
-    @question  = Question.find(params[:id])
+    @question  = Question.with_answers.find(params[:id])
+    @answers   = @question.answers
   end
 
   def create

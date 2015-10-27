@@ -16,6 +16,8 @@ gem "active_model_serializers",  '~> 0.8.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-pluralize'
+  gem 'rails-assets-es6-promise'
+  gem 'rails-assets-fetch'
 end
 
 group :development do

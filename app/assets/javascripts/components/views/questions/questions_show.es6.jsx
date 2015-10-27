@@ -3,28 +3,32 @@ class QuestionsShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      ready:   false,
-      answers: []
-    };
+    this.state = { questions, question, answers, user } = this.props
 
     this.onAnswer     = this.onAnswer.bind(this);
     this.fetchAnswers = this.fetchAnswers.bind(this);
-
-    this.fetchAnswers()
   }
 
   componentDidMount() {
-    setInterval(this.fetchAnswers, 5 * 1000);
+    this.interval = setInterval(this.fetchAnswers, 5 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   fetchAnswers() {
-    fetch(`/answers?id=${this.props.question.id}`)
+    fetch(`/answers?id=${this.props.question.id}`, {
+      headers: {
+        'Accept':       'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
     .then(response=>{
       return response.json();
     })
     .then(json=>{
-      this.setState({ready: true, answers: json.answers});
+      this.setState({answers: json.answers});
     })
     .catch(err=>{
       console.log('ERR', err);
@@ -64,14 +68,12 @@ class QuestionsShow extends React.Component {
 
   render() {
 
-    const { question, questions, user } = this.props;
-
-    const questionRender = this.state.ready ? <Question user={user} question={question} answers={this.state.answers} onAnswer={this.onAnswer}/> : '';
+    const { question, questions, user, answers } = this.state;
 
     return (
       <div className="row">
         <div className="col-md-9">
-          {questionRender}
+          <Question user={user} question={question} answers={answers} onAnswer={this.onAnswer}/>
         </div>
         <div className="col-md-3" style={{marginTop: '40px'}}>
           <HotQuestionsList questions={questions} />
@@ -83,5 +85,7 @@ class QuestionsShow extends React.Component {
 
 QuestionsShow.propTypes = {
   question:  React.PropTypes.object.isRequired,
-  questions: React.PropTypes.array.isRequired
+  questions: React.PropTypes.array.isRequired,
+  answers:   React.PropTypes.array.isRequired,
+  user:      React.PropTypes.object
 };

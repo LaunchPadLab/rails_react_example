@@ -1,2 +1,6 @@
-<!-- Explicitly DO NOT prerender so I can use 'fetch' -->
-<%= react_component('QuestionsShow', question: @question, questions: @questions, user: current_user) %>
+<%= react_component('QuestionsShow', {
+  question:  @question,
+  questions: @questions,
+  answers:   @answers,
+  user:      current_user
+  }, { prerender: true }) %>

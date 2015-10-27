@@ -3,7 +3,8 @@ class AnswersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Answer.with_user.where(question_id: params[:id])
+    @answers = Answer.with_user.where(question_id: params[:id])
+    respond_with @answers
   end
 
   def create
