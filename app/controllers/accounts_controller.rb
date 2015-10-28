@@ -4,8 +4,8 @@ class AccountsController < ApplicationController
 
   def edit
     render component: 'AccountsEdit', props: {
-        preference: PreferenceSerializer.new(current_user.preference)
-      }, tag: 'div'
+      preference: PreferenceSerializer.new(current_user.preference)
+    }, tag: 'div'
   end
 
   def update

@@ -1,7 +1,4 @@
 function _fetch(url, options) {
-  console.log('_fetching...')
-  console.log(url)
-  console.log(options)
   return fetch(url, options)
     .then(response=>{
       return response.json();
