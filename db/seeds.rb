@@ -8,6 +8,12 @@ if Rails.env.development?
     {email: "tom@launchpadlab.com",     password: "password"}
   ])
 
+  Preference.create!([
+    {user: dave, display_name: 'dcizzle', notify_on_answer: false, daily_digest: true},
+    {user: bh,   display_name: 'BH',      notify_on_answer: false, daily_digest: true},
+    {user: tom,  display_name: 'F&C',     notify_on_answer: true,  daily_digest: true}
+  ])
+
   oreo, snickers, milky_way = Question.create!([
     {user: dave, title: "Oreos!",     description: "How do I eat them?", votes: 0, views: 0},
     {user: dave, title: "Snickers!",  description: "How do I eat them?", votes: 0, views: 0},

@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   root to: 'questions#index'
   resources :questions
   resources :answers
+
+  get   '/account', to:'accounts#edit', as: 'account'
+  patch '/account', to:'accounts#update'
 end

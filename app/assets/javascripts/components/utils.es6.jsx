@@ -36,3 +36,8 @@ function post(url, payload, options) {
 
   return _fetch(url, Object.assign({}, defaultOptions, options));
 }
+
+function patch(url, payload, options) {
+  const _options = Object.assign({}, options, {method: 'PATCH'});
+  return post(url, payload, _options);
+}
