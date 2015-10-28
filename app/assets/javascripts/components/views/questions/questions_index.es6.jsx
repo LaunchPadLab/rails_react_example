@@ -18,21 +18,10 @@ class QuestionsIndex extends React.Component {
   }
 
   fetchQuestions() {
-    fetch('/questions', {
-      headers: {
-        'Accept':       'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response=>{
-      return response.json();
-    })
-    .then(json=>{
-      this.setState({questions: json.questions});
-    })
-    .catch(err=>{
-      console.log('ERR', err);
-    });
+    get('/questions')
+      .then(json=>{
+        this.setState({questions: json.questions});
+      })
   }
 
   handleSubmit() {
@@ -43,27 +32,11 @@ class QuestionsIndex extends React.Component {
       }
     };
 
-    fetch('/questions', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'X-CSRF-Token': document.getElementsByName("csrf-token")[0].content,
-        'Accept':       'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
-    })
-    .then(response=>{
-      if (response.ok) {
+    post('/questions', payload)
+      .then(json=>{
         this.fetchQuestions();
-        return true;
-      } else {
-        return new Error(response.statusText);
-      }
-    })
-    .catch(err=>{
-      console.log('ERR', err);
-    });
+      });
+
     this.refs.title.value = '';
     this.refs.description.value = '';
   }

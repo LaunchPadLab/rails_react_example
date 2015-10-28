@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
       format.html do
         render component: 'QuestionsIndex', props: {
           questions: prepareArray(questions),
-          user:      prepare(current_user)
+          user:      current_user && prepare(current_user)
         }, tag: 'div'
       end
       format.json { render json: questions }
@@ -27,7 +27,7 @@ class QuestionsController < ApplicationController
           questions: prepareArray(questions),
           question:  prepare(question),
           answers:   prepareArray(answers),
-          user:      prepare(current_user)
+          user:      current_user && prepare(current_user)
         }, tag: 'div'
       end
       format.json { render json: questions }

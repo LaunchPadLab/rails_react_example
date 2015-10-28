@@ -18,21 +18,10 @@ class QuestionsShow extends React.Component {
   }
 
   fetchAnswers() {
-    fetch(`/answers?id=${this.state.question.id}`, {
-      headers: {
-        'Accept':       'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response=>{
-      return response.json();
-    })
-    .then(json=>{
-      this.setState({answers: json.answers});
-    })
-    .catch(err=>{
-      console.log('ERR', err);
-    });
+    get(`/answers?id=${this.state.question.id}`)
+      .then(json=>{
+        this.setState({answers: json.answers});
+      });
   }
 
   onAnswer(description) {
@@ -43,27 +32,10 @@ class QuestionsShow extends React.Component {
       }
     };
 
-    fetch('/answers', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'X-CSRF-Token': document.getElementsByName("csrf-token")[0].content,
-        'Accept':       'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
-    })
-    .then(response=>{
-      if (response.ok) {
+    post('/answers', payload)
+      .then(json=>{
         this.fetchAnswers();
-        return true;
-      } else {
-        return new Error(response.statusText);
-      }
-    })
-    .catch(err=>{
-      console.log('ERR', err);
-    });
+      });
   }
 
   render() {
