@@ -24,7 +24,9 @@ class QuestionsIndex extends React.Component {
       })
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
+
     const payload = {
       question: {
         title:       this.refs.title.value,

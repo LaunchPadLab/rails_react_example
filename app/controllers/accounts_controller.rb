@@ -11,9 +11,9 @@ class AccountsController < ApplicationController
   def update
     @preference = current_user.preference
     if @preference.update_attributes(preference_params)
-      render json: { data: 'success!' }
+      render json: { data: 'SUCCESS!' }
     else
-      render json: { data: 'fail!' }
+      render json: { data: 'FAIL!' }
     end
   end
 

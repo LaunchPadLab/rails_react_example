@@ -4,7 +4,8 @@ class AccountsEdit extends React.Component {
     super(props);
 
     this.state = {
-      isDirty: false
+      isDirty: false,
+      alerts: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,27 +21,29 @@ class AccountsEdit extends React.Component {
     this.setState({isDirty: isDirty});
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
+
     const payload = {
       preference: {
         display_name:     this.refs.displayName.value,
-        notify_on_answer: this.refs.notifyOnAnswer.value,
-        daily_digest:     this.refs.dailyDigest.value
+        notify_on_answer: this.refs.notifyOnAnswer.checked,
+        daily_digest:     this.refs.dailyDigest.checked
       }
     };
 
     patch('/account', payload)
       .then(json=>{
-        console.log(json);
-        this.refs.displayName.value    = '';
-        this.refs.notifyOnAnswer.value = '';
-        this.refs.dailyDigest.value    = '';
+        this.setState({alerts: this.state.alerts.concat(json.data)});
+      })
+      .catch(err=>{
+        this.setState({alerts: this.state.alerts.concat(json.data)});
       });
   }
 
   render() {
 
-    const { preference } = this.state;
+    const { preference } = this.props;
 
     const button = this.state.isDirty ?
       <button
@@ -49,11 +52,13 @@ class AccountsEdit extends React.Component {
         onClick={this.handleSubmit}>Submit
       </button> : '';
 
+    const alerts = this.state.alerts.map((text,idx)=>{ return <Alert key={idx} text={text}/>; });
+
     return (
       <div className="row">
-        <React.addons.CSSTransitionGroup>
-          <Alert/>
-        <React.addons.CSSTransitionGroup>
+        <React.addons.CSSTransitionGroup transitionName="alert" transitionEnterTimeout={2000} transitionLeaveTimeout={300}>
+          {alerts}
+        </React.addons.CSSTransitionGroup>
         <div className="col-md-6 col-md-offset-3">
           <h3>Preferences</h3>
           <br/>
@@ -66,7 +71,7 @@ class AccountsEdit extends React.Component {
                 placeholder="Display Name"
                 ref="displayName"
                 onChange={this.handleChange}
-                defaultValue={this.props.preference.display_name} />
+                defaultValue={preference.display_name} />
             </div>
             <br/>
             <div className="checkbox">
@@ -75,7 +80,7 @@ class AccountsEdit extends React.Component {
                   type="checkbox"
                   ref="notifyOnAnswer"
                   onChange={this.handleChange}
-                  defaultChecked={this.props.preference.notify_on_answer}/> Notify on Answer
+                  defaultChecked={preference.notify_on_answer}/> Notify on Answer
               </label>
             </div>
             <br/>
@@ -85,7 +90,7 @@ class AccountsEdit extends React.Component {
                   type="checkbox"
                   ref="dailyDigest"
                   onChange={this.handleChange}
-                  defaultChecked={this.props.preference.daily_digest}/> Daily Digest
+                  defaultChecked={preference.daily_digest}/> Daily Digest
               </label>
             </div>
             {button}
@@ -105,21 +110,26 @@ class Alert extends React.Component {
     super(props);
 
     this.styles = {
+      opacity: '0',
       position: 'absolute',
-      top: '100px',
-      left: '300px',
+      top: '150px',
+      left: '325px',
       fontSize: '128px',
       textAlign: 'center',
-      color: '#29F514'
-    }
+      backgroundColor: '#29F514',
+      zIndex: '10'
+    };
   }
 
   render() {
     return (
       <div style={this.styles}>
-        You did it!!!
+        {this.props.text}
       </div>
     );
   }
 }
 
+Alert.propTypes = {
+  text: React.PropTypes.string.isRequired
+};

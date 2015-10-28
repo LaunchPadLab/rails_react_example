@@ -32,3 +32,12 @@
   background-color: white;
   transition: background-color 1000ms ease-in;
 }
+
+.alert-enter {
+  opacity: 1;
+}
+
+.alert-enter.alert-enter-active {
+  opacity: 0;
+  transition: opacity 2000ms ease-in;
+}
